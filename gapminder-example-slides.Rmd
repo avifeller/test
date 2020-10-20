@@ -1,0 +1,58 @@
+---
+title: "Gapminder Example"
+author: "ds4pp"
+date: "10/14/2020"
+output: slidy_presentation
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(plotly)
+
+#install.packages("gapminder")
+library(gapminder)
+```
+
+
+
+## Gapminder example
+
+This is a very interesting example.
+
+- I use the `gapminder` data set
+- I make a clean  plot in `ggplot`
+- I make it interactive via `plotly`
+
+
+
+## `R` code
+This is the `R` for making my one figure
+```{r}
+gapminder %>% 
+  filter(year == 2007) %>%
+  ggplot(aes(x = gdpPercap, 
+             y = lifeExp, 
+             color = continent, 
+             text = paste("country:", country))) +
+  geom_point(alpha = (2/3)) + 
+  scale_x_log10() + 
+  theme_minimal() +
+  labs(x = "GDP per Capita", 
+       y = "Life Expectancy",
+       title = "Life expectancy by GDP per capita") -> p
+```
+
+
+
+
+## Static plot
+```{r, echo = FALSE, fig.align = 'center'}
+p
+```
+
+
+## Interactive plot
+```{r, echo = FALSE, fig.align = 'center'}
+ggplotly(p)
+```
+
